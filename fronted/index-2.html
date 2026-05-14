@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taekwondo Akadem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --yellow: #FFD600;
+      --yellow-dim: rgba(255,214,0,0.12);
+      --yellow-glow: rgba(255,214,0,0.35);
+      --white: #F8F7F2;
+      --gray: #141414;
+      --gray-2: #1c1c1c;
+      --text-muted: rgba(255,255,255,0.4);
+      --radius: 2rem;
+      --radius-sm: 1rem;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    /* removed — was causing white haze over content */
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 1.4rem; left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding: 0.5rem 0.6rem 0.5rem 1.2rem;
+      background: rgba(10,10,10,0.7);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 99px;
+      animation: slideDown 0.8s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .nav-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem;
+      color: var(--yellow);
+      letter-spacing: 0.1em;
+      margin-right: 0.8rem;
+    }
+
+    .nav-link {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      padding: 0.42rem 1rem;
+      border-radius: 99px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-link:hover {
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+    }
+
+    .nav-cta {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      padding: 0.42rem 1rem;
+      border-radius: 99px;
+      margin-left: 0;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 1.5rem 8rem;
+      overflow: hidden;
+    }
+
+    /* Gradient mesh background */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: var(--black);
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      width: 900px; height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(255,214,0,0.15) 0%, transparent 65%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -56%);
+      animation: pulseGlow 6s ease-in-out infinite alternate;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 10% 90%, rgba(255,214,0,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 90% 10%, rgba(255,214,0,0.05) 0%, transparent 70%);
+    }
+
+    /* Grid lines */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,214,0,0.1);
+      border: 1px solid rgba(255,214,0,0.25);
+      color: var(--yellow);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 0.42rem 1.2rem;
+      border-radius: 99px;
+      margin-bottom: 2.4rem;
+      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--yellow);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4.5rem, 14vw, 11rem);
+      line-height: 0.88;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+    }
+
+    .hero-title .accent {
+      display: block;
+      color: var(--yellow);
+      position: relative;
+    }
+
+    .hero-title .accent::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40%;
+      height: 3px;
+      background: var(--yellow);
+      border-radius: 99px;
+      opacity: 0.4;
+    }
+
+    .hero-sub {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+    }
+    .hero-sub span { opacity: 0.3; }
+
+    .hero-cta-row {
+      margin-top: 3.5rem;
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.4s both;
+    }
+
+    /* Floating stat chips */
+    .hero-stats {
+      display: flex;
+      gap: 1rem;
+      margin-top: 5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.55s both;
+    }
+    .stat-chip {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 99px;
+      padding: 0.55rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .stat-chip .num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--yellow);
+      line-height: 1;
+    }
+    .stat-chip .label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 99px;
+      padding: 0.9rem 2.2rem;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease, opacity 0.18s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn:hover  { transform: translateY(-2px) scale(1.03); }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--black);
+      box-shadow: 0 0 0 rgba(255,214,0,0);
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 60%);
+      border-radius: inherit;
+    }
+    .btn-primary:hover { box-shadow: 0 8px 40px rgba(255,214,0,0.45); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.15);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.05);
+    }
+
+    /* ─── SMOOTH GRADIENT TRANSITIONS ─── */
+    /* Section transitions use SVG-free smooth gradients */
+
+    .section-transition-down {
+      height: 120px;
+      background: linear-gradient(to bottom, var(--black), var(--white));
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-transition-up {
+      height: 120px;
+      background: linear-gradient(to bottom, var(--white), var(--black));
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: var(--white);
+      padding: 7rem 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .container { max-width: 960px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 0.8rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 20px; height: 2px;
+      background: var(--yellow);
+      border-radius: 99px;
+    }
+
+    #about .section-label { color: #888; }
+    #about .section-label::before { background: #111; }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 4.8rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+    }
+    #about .section-title { color: #0a0a0a; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      margin-top: 3.5rem;
+    }
+    @media (max-width: 600px) {
+      .about-grid { grid-template-columns: 1fr; }
+      nav { display: none; }
+    }
+
+    .about-card {
+      background: #FFD600;
+      border-radius: var(--radius);
+      padding: 2.4rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.28s ease;
+      cursor: default;
+    }
+    .about-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.1);
+    }
+    .about-card.yellow {
+      background: #FFD600;
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 1.2rem;
+      line-height: 1;
+    }
+    .about-card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      color: #0a0a0a;
+      margin-bottom: 0.6rem;
+    }
+    .about-card p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(0,0,0,0.55);
+      font-weight: 500;
+    }
+
+    /* ─── PAYMENT ─── */
+    #payment {
+      background: var(--black);
+      padding: 7rem 1.5rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .payment-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,214,0,0.1) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: pulseGlow 5s ease-in-out infinite alternate;
+    }
+
+    #payment .section-title { color: var(--white); }
+    #payment .section-label { color: var(--text-muted); }
+
+    .payment-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 3.5rem 2.5rem;
+      max-width: 480px;
+      margin: 3rem auto 0;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .payment-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .price-tag {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      padding: 0.5rem 2rem 0.3rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .price-tag::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%);
+    }
+
+    .payment-card .desc {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.92rem;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+
+    .payment-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 2.2rem;
+      text-align: left;
+    }
+    .feature-row {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+    }
+    .feature-row::before {
+      content: '✓';
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(255,214,0,0.12);
+      color: var(--yellow);
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    footer p {
+      color: rgba(255,255,255,0.18);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+    @keyframes pulseGlow {
+      from { transform: translate(-50%, -56%) scale(0.95); opacity: 0.8; }
+      to   { transform: translate(-50%, -56%) scale(1.05); opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal:nth-child(2) { transition-delay: 0.08s; }
+    .reveal:nth-child(3) { transition-delay: 0.16s; }
+    .reveal:nth-child(4) { transition-delay: 0.24s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-brand">TKD</span>
+    <a class="nav-link" href="#about">О нас</a>
+    <a class="nav-link" href="#payment">Оплата</a>
+    <a class="nav-cta" href="#payment">Записаться</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Профессиональная школа боевых искусств</div>
+      <h1 class="hero-title">
+        Taekwondo
+        <span class="accent">Akadem</span>
+      </h1>
+      <div class="hero-sub">
+        Сила <span>·</span> Дисциплина <span>·</span> Дух
+      </div>
+      <div class="hero-cta-row">
+        <a href="#about" class="btn btn-primary">О нас</a>
+        <a href="#payment" class="btn btn-ghost">Оплатить тренировку</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-chip">
+          <span class="num">10+</span>
+          <span class="label">Лет опыта</span>
+        </div>
+        <div class="stat-chip">
+          <span class="num">200+</span>
+          <span class="label">Учеников</span>
+        </div>
+        <div class="stat-chip">
+          <span class="num">50+</span>
+          <span class="label">Наград</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSITION: black → white -->
+  <div class="section-transition-down"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title reveal">О нас</h2>
+      <div class="about-grid">
+        <div class="about-card reveal">
+          <span class="card-icon">🥋</span>
+          <h3>Наша миссия</h3>
+          <p>Здесь будет ваш текст о миссии академии и целях клуба.</p>
+        </div>
+        <div class="about-card yellow reveal">
+          <span class="card-icon">🏆</span>
+          <h3>Достижения</h3>
+          <p>Здесь будет информация о достижениях, наградах и результатах учеников.</p>
+        </div>
+        <div class="about-card reveal">
+          <span class="card-icon">👨‍🏫</span>
+          <h3>Тренеры</h3>
+          <p>Здесь будет информация о тренерском составе и их квалификации.</p>
+        </div>
+        <div class="about-card reveal">
+          <span class="card-icon">📍</span>
+          <h3>Расписание</h3>
+          <p>Здесь будет расписание тренировок и адрес зала.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSITION: white → black -->
+  <div class="section-transition-up"></div>
+
+  <!-- PAYMENT -->
+  <section id="payment">
+    <div class="payment-glow"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <p class="section-label reveal">Быстро и удобно</p>
+      <h2 class="section-title reveal">Оплата тренировок</h2>
+      <div class="payment-card reveal">
+        <div class="price-tag">₽ / МЕС</div>
+        <div class="payment-features">
+          <div class="feature-row">Оплата через ЮКасса</div>
+          <div class="feature-row">Защищённое соединение</div>
+          <div class="feature-row">Мгновенное подтверждение</div>
+        </div>
+        <p class="desc">Оплачивайте тренировки онлайн через защищённую платёжную систему ЮКасса. Быстро, безопасно и без лишних шагов.</p>
+        <a href="/checkout" class="btn btn-primary" style="width:100%; justify-content:center; font-size:0.95rem;">
+          💳 &nbsp; Перейти к оплате
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Taekwondo Akadem &nbsp;·&nbsp; Все права защищены</p>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
