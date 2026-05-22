@@ -406,7 +406,7 @@
     /* ─── PAYMENT ─── */
     #payment {
       background: var(--black);
-      padding: 7rem 1.5rem;
+      padding: 3rem 1.5rem 7rem;
       text-align: center;
       position: relative;
       z-index: 1;
@@ -505,6 +505,127 @@
       flex-shrink: 0;
     }
 
+    /* ─── PRICING ─── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 3.5rem auto 0;
+      max-width: 960px;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 800px) {
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+
+    .pricing-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1.5rem;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,214,0,0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .pricing-card.featured {
+      background: var(--yellow);
+      border-color: var(--yellow);
+    }
+    .pricing-card.featured:hover {
+      box-shadow: 0 20px 60px rgba(255,214,0,0.35);
+    }
+
+    .pricing-badge {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--yellow);
+      padding: 0.3rem 0.9rem;
+      border-radius: 99px;
+      margin-bottom: 1.3rem;
+    }
+    .pricing-card.featured .pricing-badge {
+      background: rgba(0,0,0,0.15);
+      color: var(--black);
+    }
+
+    .pricing-icon {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .pricing-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .pricing-card.featured .pricing-name { color: rgba(0,0,0,0.5); }
+
+    .pricing-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.3rem;
+    }
+    .pricing-card.featured .pricing-amount { color: var(--black); }
+
+    .pricing-period {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+    }
+    .pricing-card.featured .pricing-period { color: rgba(0,0,0,0.45); }
+
+    .pricing-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin-bottom: 1.2rem;
+    }
+    .pricing-card.featured .pricing-divider { background: rgba(0,0,0,0.1); }
+
+    .pricing-desc {
+      font-size: 0.84rem;
+      line-height: 1.65;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      flex: 1;
+    }
+    .pricing-card.featured .pricing-desc { color: rgba(0,0,0,0.55); }
+
+    .pricing-free-tag {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--yellow);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.3rem;
+    }
+
     /* ─── FOOTER ─── */
     footer {
       background: var(--black);
@@ -560,6 +681,7 @@
   <nav>
     <span class="nav-brand">TKD</span>
     <a class="nav-link" href="#about">О нас</a>
+    <a class="nav-link" href="#pricing">Тарифы</a>
     <a class="nav-link" href="#payment">Оплата</a>
     <a class="nav-cta" href="#payment">Записаться</a>
   </nav>
@@ -633,42 +755,165 @@
   <!-- TRANSITION: white → black -->
   <div class="section-transition-up"></div>
 
-  <!-- PAYMENT -->
-  <section id="payment">
-    <div class="payment-glow"></div>
+  <!-- PRICING -->
+  <section id="pricing" style="background: var(--black); padding: 7rem 1.5rem 4rem; position:relative; z-index:1; overflow:hidden;">
+    <div class="payment-glow" style="opacity:0.6;"></div>
     <div class="container" style="position:relative;z-index:1;">
-      <p class="section-label reveal">Быстро и удобно</p>
-      <h2 class="section-title reveal">Оплата тренировок</h2>
-      <div class="payment-card reveal">
-        <div class="price-tag">₽ / МЕС</div>
-        <div class="payment-features">
-          <div class="feature-row">Оплата через ЮКасса</div>
-          <div class="feature-row">Защищённое соединение</div>
-          <div class="feature-row">Мгновенное подтверждение</div>
+      <p class="section-label reveal" style="color: var(--text-muted);">Прозрачные условия</p>
+      <h2 class="section-title reveal" style="color: var(--white);">Тарифы и стоимость</h2>
+      <div class="pricing-grid">
+
+        <!-- FREE -->
+        <div class="pricing-card reveal">
+          <span class="pricing-icon">🎁</span>
+          <span class="pricing-badge">Старт</span>
+          <div class="pricing-name">Первое занятие</div>
+          <div class="pricing-amount" style="font-size:2rem;">Бесплатно</div>
+          <div class="pricing-period">один раз</div>
+          <div class="pricing-divider"></div>
+          <div class="pricing-desc">Приходите и убедитесь сами — первая тренировка абсолютно бесплатно. Никаких обязательств, только возможность почувствовать атмосферу зала.</div>
         </div>
-        <p class="desc">Оплачивайте тренировки онлайн через защищённую платёжную систему ЮКасса. Быстро, безопасно и без лишних шагов.</p>
-        <a href="/checkout" class="btn btn-primary" style="width:100%; justify-content:center; font-size:0.95rem;">
-          💳 &nbsp; Перейти к оплате
-        </a>
+
+        <!-- MONTHLY -->
+        <div class="pricing-card reveal">
+          <span class="pricing-icon">🔥</span>
+          <span class="pricing-badge">Популярное</span>
+          <div class="pricing-name">Групповые тренировки</div>
+          <div class="pricing-amount">4 100</div>
+          <div class="pricing-period">₽ / месяц</div>
+          <div class="pricing-divider"></div>
+          <div class="pricing-desc">Безлимитный доступ к групповым занятиям в течение месяца. Идеальный формат для системного прогресса и командного духа.</div>
+        </div>
+
+        <!-- SINGLE -->
+        <div class="pricing-card reveal">
+          <span class="pricing-icon">⚡</span>
+          <span class="pricing-badge">Разовая</span>
+          <div class="pricing-name">Одна тренировка</div>
+          <div class="pricing-amount">600</div>
+          <div class="pricing-period">₽ / занятие</div>
+          <div class="pricing-divider"></div>
+          <div class="pricing-desc">Гибкий формат без абонемента. Оплачивайте только те тренировки, на которые приходите — удобно при нерегулярном графике.</div>
+        </div>
+
+        <!-- PERSONAL -->
+        <div class="pricing-card reveal">
+          <span class="pricing-icon">🎯</span>
+          <span class="pricing-badge">Премиум</span>
+          <div class="pricing-name">Индивидуально</div>
+          <div class="pricing-amount">1 000</div>
+          <div class="pricing-period">₽ / занятие</div>
+          <div class="pricing-divider"></div>
+          <div class="pricing-desc">Персональная работа с тренером один на один. Программа, разработанная специально под ваши цели, темп и уровень подготовки.</div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Taekwondo Akadem &nbsp;·&nbsp; Все права защищены</p>
-  </footer>
+ <!-- PAYMENT -->
+<section id="payment">
+  <div class="payment-glow"></div>
 
-  <script>
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          io.unobserve(e.target);
-        }
+  <div class="container" style="position:relative;z-index:1;">
+    <p class="section-label reveal">Быстро и удобно</p>
+    <h2 class="section-title reveal">Оплата тренировок</h2>
+
+    <div class="payment-card reveal">
+
+      <div class="price-tag">₽ / МЕС</div>
+
+      <div class="payment-features">
+        <div class="feature-row">Оплата через ЮKassa</div>
+        <div class="feature-row">Защищённое соединение</div>
+        <div class="feature-row">Мгновенное подтверждение</div>
+      </div>
+
+      <p class="desc">
+        Оплачивайте тренировки онлайн через защищённую платёжную систему ЮKassa.
+        Быстро, безопасно и без лишних шагов.
+      </p>
+
+      <!-- INPUTS -->
+      <input id="parent_name" placeholder="Имя родителя" style="width:100%; margin-bottom:10px; padding:10px;">
+      <input id="amount" type="number" placeholder="Сумма (₽)" style="width:100%; margin-bottom:10px; padding:10px;">
+      <input id="comment" placeholder="Комментарий" style="width:100%; margin-bottom:15px; padding:10px;">
+
+      <button id="payBtn" onclick="pay()" class="btn btn-primary"
+        style="width:100%; justify-content:center; font-size:0.95rem;">
+
+        💳 &nbsp; Перейти к оплате
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Taekwondo Akadem &nbsp;·&nbsp; Все права защищены</p>
+</footer>
+
+<script>
+  // ===== BACKEND URL (потом заменишь на прод) =====
+  const API_URL = "http://127.0.0.1:8000/create_payment";
+
+  // ===== ANIMATION =====
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+
+  // ===== PAYMENT =====
+  async function pay() {
+    const btn = document.getElementById("payBtn");
+
+    const parent_name = document.getElementById("parent_name").value;
+    const amount = document.getElementById("amount").value;
+    const comment = document.getElementById("comment").value;
+
+    if (!amount || amount <= 0) {
+      alert("Введите корректную сумму");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerText = "Создаём платёж...";
+
+    try {
+      const response = await fetch(`${API_URL}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          parent_name: parent_name || "Client",
+          amount: Number(amount),
+          comment: comment || "training payment"
+        })
       });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  </script>
-</body>
-</html>
+
+      const data = await response.json();
+
+      if (data.confirmation_url) {
+        window.location.href = data.confirmation_url;
+      } else {
+        alert("Ошибка создания платежа");
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert("Ошибка соединения с сервером");
+    }
+
+    btn.disabled = false;
+    btn.innerText = "💳 Перейти к оплате";
+  }
+</script>
