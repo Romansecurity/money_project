@@ -1,6 +1,5 @@
-from sqlalchemy import create_engine #движок, отвечающий за соединение с БД
-from sqlalchemy.orm import declarative_base #клдасс для создания всех ORM моделей
-from sqlalchemy.orm import sessionmaker #класс для создания сессий, которые будут работать с БД (INSERT, UPDATE и тд)
+from sqlalchemy import create_engine 
+from sqlalchemy.orm import sessionmaker 
 import os
 from dotenv import load_dotenv
 

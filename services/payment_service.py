@@ -1,4 +1,4 @@
-from yookassa import Payment # класс для работы с API Yookassa
+from yookassa import Payment 
 from yookassa import Configuration
 import os
 

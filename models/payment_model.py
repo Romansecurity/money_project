@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, Text
-#Column - класс для создания колонок в таблице
 from database.session import Base
-from sqlalchemy.sql import func #импорт пространства имен для работы с функ. SQL
+from sqlalchemy.sql import func 
 
 class Payment(Base):
     __tablename__ = "payments"

@@ -4,7 +4,6 @@ from models.payment_model import Payment
 from schemas.payment_schemas import PaymentCreate
 from services.payment_service import create_payment_in_yoocassa
 from schemas.yookassa_schemas import WebhookData
-
 router = APIRouter()
 
 @router.post("/create_payment")
