@@ -2,7 +2,7 @@ from yookassa import Configuration
 import os
 
 Configuration.account_id = os.getenv("YOOKASSA_SHOP_KEY")
-Configuration.secret_key = os.getenv("YOOKASSA_SECRET_ID")
+Configuration.secret_key = os.getenv("YOOKASSA_SECRET_KEY")
 
 
 print("yookassa configuration loaded successfully")
