@@ -17,7 +17,10 @@ app.add_middleware(
 app.include_router(payments_router)
 
 
-Base.metadata.create_all(bind=engine)
+@app.on_event("startup")
+def startup():
+    # безопасно создаёт таблицы
+    Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def read_root():
