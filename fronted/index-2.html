@@ -361,9 +361,92 @@
       gap: 1.2rem;
       margin-top: 3.5rem;
     }
-    @media (max-width: 600px) {
+    /* ─── RESPONSIVE ─── */
+
+    /* Tablet (≤ 768px) */
+    @media (max-width: 768px) {
+      nav {
+        top: 0.8rem;
+        padding: 0.4rem 0.5rem 0.4rem 1rem;
+        gap: 0.1rem;
+      }
+      .nav-link { padding: 0.35rem 0.6rem; font-size: 0.75rem; }
+      .nav-cta  { padding: 0.35rem 0.6rem; font-size: 0.75rem; }
+      .nav-brand { font-size: 1rem; margin-right: 0.4rem; }
+
+      .hero { padding: 5rem 1.2rem 6rem; }
+      .hero-stats { gap: 0.6rem; margin-top: 3rem; }
+      .stat-chip { padding: 0.45rem 1rem; }
+      .stat-chip .num { font-size: 1.2rem; }
+
       .about-grid { grid-template-columns: 1fr; }
-      nav { display: none; }
+
+      #about { padding: 5rem 1.2rem; }
+
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .payment-card { padding: 2.5rem 1.5rem; }
+    }
+
+    /* Mobile (≤ 480px) */
+    @media (max-width: 480px) {
+      /* Nav — скрываем текстовые ссылки, оставляем только бренд и CTA */
+      nav {
+        top: 0.6rem;
+        gap: 0;
+        padding: 0.4rem 0.5rem 0.4rem 1rem;
+      }
+      .nav-link { display: none; }
+      .nav-cta {
+        display: inline-flex;
+        font-size: 0.72rem;
+        padding: 0.38rem 0.8rem;
+      }
+
+      /* Hero */
+      .hero { padding: 4.5rem 1rem 5rem; min-height: auto; }
+      .hero-badge { font-size: 0.6rem; padding: 0.35rem 0.9rem; margin-bottom: 1.6rem; }
+      .hero-sub { font-size: 0.65rem; gap: 0.7rem; margin-top: 1.2rem; }
+      .hero-cta-row { margin-top: 2.2rem; gap: 0.6rem; }
+      .btn { padding: 0.78rem 1.6rem; font-size: 0.82rem; }
+      .hero-stats { margin-top: 2.5rem; gap: 0.5rem; }
+      .stat-chip { padding: 0.4rem 0.8rem; }
+      .stat-chip .num { font-size: 1rem; }
+      .stat-chip .label { font-size: 0.62rem; }
+
+      /* Section transitions */
+      .section-transition-down,
+      .section-transition-up { height: 60px; }
+
+      /* About */
+      #about { padding: 3.5rem 1rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 0.8rem; margin-top: 2rem; }
+      .about-card { padding: 1.8rem 1.4rem; border-radius: 1.4rem; }
+      .about-card h3 { font-size: 1.5rem; }
+
+      /* Pricing */
+      #pricing { padding: 4rem 1rem 3rem !important; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 0.8rem; margin-top: 2rem; }
+      .pricing-card { padding: 1.6rem 1.2rem; }
+      .pricing-amount { font-size: 2.4rem; }
+
+      /* Payment */
+      #payment { padding: 2rem 1rem 5rem; }
+      .payment-card {
+        padding: 2rem 1.2rem;
+        border-radius: 1.4rem;
+        margin-top: 2rem;
+      }
+      .price-tag { font-size: 2.5rem; padding: 0.4rem 1.4rem 0.25rem; }
+      .payment-card .desc { font-size: 0.85rem; margin-bottom: 1.8rem; }
+      .payment-card input {
+        border-radius: 0.7rem !important;
+        font-size: 0.9rem !important;
+      }
+
+      /* Footer */
+      footer { padding: 2rem 1rem; }
+      footer p { font-size: 0.7rem; }
     }
 
     .about-card {
@@ -835,9 +918,9 @@
       </p>
 
       <!-- INPUTS -->
-      <input id="parent_name" placeholder="Имя родителя" style="width:100%; margin-bottom:10px; padding:10px;">
-      <input id="amount" type="number" placeholder="Сумма (₽)" style="width:100%; margin-bottom:10px; padding:10px;">
-      <input id="comment" placeholder="Комментарий" style="width:100%; margin-bottom:15px; padding:10px;">
+      <input id="parent_name" placeholder="Имя родителя" style="width:100%; margin-bottom:10px; padding:12px 14px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:0.9rem; color:#fff; font-family:'DM Sans',sans-serif; font-size:0.92rem; outline:none;">
+      <input id="amount" type="number" placeholder="Сумма (₽)" style="width:100%; margin-bottom:10px; padding:12px 14px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:0.9rem; color:#fff; font-family:'DM Sans',sans-serif; font-size:0.92rem; outline:none;">
+      <input id="comment" placeholder="Комментарий" style="width:100%; margin-bottom:20px; padding:12px 14px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:0.9rem; color:#fff; font-family:'DM Sans',sans-serif; font-size:0.92rem; outline:none;">
 
       <button id="payBtn" onclick="pay()" class="btn btn-primary"
         style="width:100%; justify-content:center; font-size:0.95rem;">
@@ -857,6 +940,7 @@
 <script>
   // ===== BACKEND URL (потом заменишь на прод) =====
   const API_URL = "https://money-project-7.onrender.com/create_payment";
+
   // ===== ANIMATION =====
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
