@@ -1,11 +1,8 @@
 from yookassa import Configuration
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
-
-Configuration.account_id = os.getenv("SHOP_ID")
-Configuration.secret_key = os.getenv("SECRET_ID")
+Configuration.account_id = os.getenv("YOOKASSA_SHOP_KEY")
+Configuration.secret_key = os.getenv("YOOKASSA_SECRET_ID")
 
 
 print("yookassa configuration loaded successfully")
